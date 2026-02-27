@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="https://public-frontend-cos.metadl.com/mgx/img/favicon_atoms.ico" type="image/x-icon">
+    <title>N14</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+    <!-- Scanline overlay -->
+    <div class="scanlines"></div>
+
+    <!-- ====== AUTH SCREEN ====== -->
+    <div class="auth-screen" id="authScreen">
+        <div class="auth-container">
+            <div class="auth-logo">
+                <h1 class="auth-title">N14<span class="cursor-blink">_</span></h1>
+                <p class="auth-subtitle">secure terminal chatroom</p>
+            </div>
+
+            <!-- Sign In Form -->
+            <form class="auth-form" id="signInForm">
+                <div class="auth-form-header">
+                    <span class="auth-prompt">&gt; SIGN IN</span>
+                </div>
+                <div class="auth-field">
+                    <label class="auth-label">username</label>
+                    <input type="text" id="signInUsername" class="auth-input" placeholder="enter username..." autocomplete="username" required minlength="2" maxlength="20">
+                </div>
+                <div class="auth-field">
+                    <label class="auth-label">password</label>
+                    <input type="password" id="signInPassword" class="auth-input" placeholder="enter password..." autocomplete="current-password" required minlength="3">
+                </div>
+                <div class="auth-error" id="signInError"></div>
+                <button type="submit" class="auth-btn">$ connect</button>
+                <div class="auth-switch">
+                    no account? <a href="#" id="showRegister">register here</a>
+                </div>
+            </form>
+
+            <!-- Register Form -->
+            <form class="auth-form hidden" id="registerForm">
+                <div class="auth-form-header">
+                    <span class="auth-prompt">&gt; REGISTER</span>
+                </div>
+                <div class="auth-field">
+                    <label class="auth-label">username</label>
+                    <input type="text" id="regUsername" class="auth-input" placeholder="choose username..." autocomplete="username" required minlength="2" maxlength="20">
+                </div>
+                <div class="auth-field">
+                    <label class="auth-label">password</label>
+                    <input type="password" id="regPassword" class="auth-input" placeholder="choose password..." autocomplete="new-password" required minlength="3">
+                </div>
+                <div class="auth-field">
+                    <label class="auth-label">confirm password</label>
+                    <input type="password" id="regConfirm" class="auth-input" placeholder="confirm password..." autocomplete="new-password" required minlength="3">
+                </div>
+                <div class="auth-error" id="registerError"></div>
+                <button type="submit" class="auth-btn">$ register</button>
+                <div class="auth-switch">
+                    already have an account? <a href="#" id="showSignIn">sign in here</a>
+                </div>
+            </form>
+
+            <div class="auth-footer">
+                <span class="auth-footer-text">encrypted connection • v2.7.1</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ====== CHAT APP (hidden until auth) ====== -->
+    <div class="app-container hidden" id="appContainer">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-left">
+                <h1 class="logo-text">N14<span class="cursor-blink">_</span></h1>
+            </div>
+            <div class="header-right">
+                <span class="status-dot"></span>
+                <span class="status-text">CONNECTED</span>
+                <span class="header-divider">|</span>
+                <span class="user-label">USER:</span>
+                <span class="current-user" id="currentUser"></span>
+                <span class="header-divider">|</span>
+                <button class="logout-btn" id="logoutBtn">logout</button>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Left Sidebar: DMs -->
+            <aside class="sidebar sidebar-left" id="sidebarLeft">
+                <div class="sidebar-header">
+                    <div class="sidebar-tabs">
+                        <button class="sidebar-tab active" data-tab="dms">
+                            <span class="tab-icon">✉</span> DMs
+                        </button>
+                        <button class="sidebar-tab" data-tab="channels">
+                            <span class="tab-icon">#</span> Channels
+                        </button>
+                    </div>
+                </div>
+                <div class="sidebar-search">
+                    <input type="text" placeholder="/ search..." id="dmSearch" class="search-input">
+                </div>
+                <div class="sidebar-content" id="dmList">
+                    <!-- DM items populated by JS -->
+                </div>
+            </aside>
+
+            <!-- Center: Chat Area -->
+            <main class="chat-area">
+                <div class="chat-header" id="chatHeader">
+                    <span class="chat-channel-icon">#</span>
+                    <span class="chat-channel-name" id="chatChannelName">general</span>
+                    <span class="chat-channel-desc" id="chatChannelDesc">— public chatroom</span>
+                </div>
+                <div class="chat-messages" id="chatMessages">
+                    <!-- Messages populated by JS -->
+                </div>
+                <div class="chat-input-area">
+                    <div class="input-wrapper">
+                        <span class="input-prompt">$</span>
+                        <input type="text" id="messageInput" class="message-input" placeholder="type your message..." autocomplete="off">
+                        <button class="send-btn" id="sendBtn" title="Send">
+                            <span>⏎</span>
+                        </button>
+                    </div>
+                    <div class="input-hint">
+                        <span>Press <kbd>Enter</kbd> to send</span>
+                        <span class="input-hint-right">
+                            <kbd>Esc</kbd> clear
+                        </span>
+                    </div>
+                </div>
+            </main>
+
+            <!-- Right Sidebar: Online Users -->
+            <aside class="sidebar sidebar-right" id="sidebarRight">
+                <div class="sidebar-header">
+                    <div class="online-header">
+                        <span class="online-icon">●</span>
+                        <span>ONLINE</span>
+                        <span class="online-count" id="onlineCount">0</span>
+                    </div>
+                </div>
+                <div class="sidebar-content" id="onlineList">
+                    <!-- Online users populated by JS -->
+                </div>
+                <div class="sidebar-footer">
+                    <div class="offline-header">
+                        <span class="offline-icon">○</span>
+                        <span>OFFLINE</span>
+                        <span class="offline-count" id="offlineCount">0</span>
+                    </div>
+                    <div id="offlineList" class="offline-list">
+                        <!-- Offline users populated by JS -->
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <!-- Mobile toggle buttons -->
+    <button class="mobile-toggle toggle-left hidden" id="toggleLeft" title="Toggle DMs">☰</button>
+    <button class="mobile-toggle toggle-right hidden" id="toggleRight" title="Toggle Online Users">👥</button>
+
+    <script type="module" src="./script.js"></script>
+</body>
+
+</html>
