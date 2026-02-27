@@ -1,0 +1,13 @@
+{
+  "name": "n14-chatroom",
+  "version": "1.0.0",
+  "description": "A simple web-based chatroom application",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "build": "echo 'Build complete'"
+  },
+  "keywords": ["chatroom", "web"],
+  "author": "",
+  "license": "MIT"
+}
