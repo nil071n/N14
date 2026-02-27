@@ -9,34 +9,44 @@
 <body>
     <div class="chatroom-container">
         <div class="header">
-            <h1>N14 Chatroom</h1>
+            <div class="header-top">
+                <span class="header-title">█ N14</span>
+                <span class="header-status">[ ACTIVE ]</span>
+            </div>
+            <div class="header-line"></div>
         </div>
         
         <div class="messages-container" id="messagesContainer">
-            <div class="welcome-message">Welcome to N14 Chatroom. Start chatting!</div>
+            <div class="welcome-message">
+                <span class="prompt">$</span> Welcome to N14
+            </div>
         </div>
         
         <div class="input-container">
-            <input 
-                type="text" 
-                id="nameInput" 
-                placeholder="Enter your name" 
-                class="name-input"
-                maxlength="20"
-            >
-            <input 
-                type="text" 
-                id="messageInput" 
-                placeholder="Type your message..." 
-                class="message-input"
-                maxlength="500"
-            >
-            <button id="sendBtn" class="send-btn">Send</button>
+            <div class="input-row">
+                <span class="prompt">$</span>
+                <input 
+                    type="text" 
+                    id="nameInput" 
+                    placeholder="user" 
+                    class="name-input"
+                    maxlength="20"
+                >
+                <span class="separator">@</span>
+                <input 
+                    type="text" 
+                    id="messageInput" 
+                    placeholder="enter message..." 
+                    class="message-input"
+                    maxlength="500"
+                >
+                <button id="sendBtn" class="send-btn">›</button>
+            </div>
         </div>
         
-        <div class="online-users" id="onlineUsers">
-            <strong>Online Users:</strong>
-            <span id="userCount">0</span>
+        <div class="footer">
+            <span class="footer-item">[<span id="userCount">0</span> users]</span>
+            <span class="footer-item">[<span id="msgCount">0</span> messages]</span>
         </div>
     </div>
 

@@ -73,7 +73,8 @@ class Chatroom {
         
         messageEl.innerHTML = `
             <div class="message-content">
-                <span class="sender-name">${this.escapeHtml(msg.sender)}</span>
+                <span class="prompt">$</span>
+                <span class="sender-name">${this.escapeHtml(msg.sender)}:</span>
                 <span class="message-text">${this.escapeHtml(msg.text)}</span>
             </div>
             <div class="message-time">${msg.timestamp}</div>
@@ -81,6 +82,7 @@ class Chatroom {
         
         this.messagesContainer.appendChild(messageEl);
         this.messagesContainer.scrollTop = this.messagesContainer.scrollHeight;
+        this.updateMessageCount();
     }
     
     loadMessages() {
@@ -93,6 +95,7 @@ class Chatroom {
             this.messages.forEach((msg, index) => {
                 this.renderMessage(msg, index);
             });
+            this.updateMessageCount();
         }
     }
     
@@ -114,6 +117,13 @@ class Chatroom {
     
     updateUserCount() {
         this.userCountElement.textContent = this.users.size;
+    }
+    
+    updateMessageCount() {
+        const msgCountElement = document.getElementById('msgCount');
+        if (msgCountElement) {
+            msgCountElement.textContent = this.messages.length;
+        }
     }
     
     escapeHtml(text) {
